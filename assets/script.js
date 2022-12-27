@@ -1,32 +1,30 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-var inputLowerCase
-var inputUpperCase
-var inputSpecialChar
-var inputNumbers
+var inputLowerCase;
+var inputUpperCase;
+var inputSpecialChar;
+var inputNumbers;
 
-var passwordArray
-var passwordText
-var password
+var passwordArray;
+var passwordText;
+var password;
 
-var passwordLength
-var characterPool = []
+var passwordLength;
+var passwordLengthNum;
+var characterPool = [];
+var characterPoolLength;
 
-var randomNumber
-var i
+var randomNumber;
+var i;
 
-var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-var specialChar = ["`", "~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "[", "{", "]", "}", "\\", "|", ";", ":", "\'", "\"", ",", "<", ".", ">", "/", "?"]
-var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+var specialChar = ["`", "~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "[", "{", "]", "}", "\\", "|", ";", ":", "\'", "\"", ",", "<", ".", ">", "/", "?"];
+var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 // Write password to the #password input
-function writePassword() {
-  password = generatePassword();
-  passwordText = document.querySelector("#password");
-
-  passwordText.value = password;
+function initPassword() {
 
   // This resets the character pool for the generation of a new password.
   characterPool.splice (0, [characterPool.length])
@@ -92,7 +90,8 @@ function getParameters() {
   }
   else {
     return
-  }
+  };
+
   // This restricts the input to the allowable range of numbers.
   while (passwordLength < 8 || passwordLength > 128) {
     if (passwordLength = prompt("Please enter the length of the password. It must be at least 8 characters long and no more than 128. A minimum length of 12 is recommended.")) {
@@ -102,25 +101,43 @@ function getParameters() {
     }
   };
 
-// console.log(characterPool[5]);
-
-generatePassword();
+  convertPasswordLength()
 };
 
+// This converts the password length from a string to a number.
+function convertPasswordLength() {
+
+  passwordLengthNum = parseInt(passwordLength);
+  console.log(typeof passwordLengthNum);
+
+  generatePassword();
+};
+
+// This randomly generates the password using the prescirbed parameters.
 function generatePassword() {
 
-  for(var i = 0; i <= [passwordLength]; i++) {
-    passwordArray.push ([characterPool[generateRandomNumber(0, [characterPool.length - 1])]])
-  }
-  
-  return passwordArray.join("")
+  for(var i = 0; i <= [passwordLengthNum]; i++) {
+    passwordArray.push([characterPool[generateRandomNumber(0, [characterPool.length - 1])]])
+  };
+
+  // This writes the newly generated password array as a string into the password variable.
+  password = passwordArray.join("")
 };
 
+// This is the random number generator, used in the generatePassword function for choosing characters from the characterPool array.
 function generateRandomNumber(min, max) {
   randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
   return randomNumber;
-  // generateRandomNumber(0, [characterPool.length - 1])
 };
 
+// This writes the generated password to the page.
+function writePassword() {
+  // password = generatePassword();
+  passwordText = document.querySelector("#password");
+
+  passwordText.value = password;
+
+}
+
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", initPassword);
