@@ -6,7 +6,7 @@ var inputUpperCase;
 var inputSpecialChar;
 var inputNumbers;
 
-var passwordArray;
+var passwordArray = [];
 var passwordText;
 var password;
 
@@ -15,6 +15,7 @@ var passwordLengthNum;
 var characterPool = [];
 var characterPoolLength;
 
+var randomCharacter;
 var randomNumber;
 var i;
 
@@ -28,6 +29,7 @@ function initPassword() {
 
   // This resets the character pool for the generation of a new password.
   characterPool.splice (0, [characterPool.length])
+  passwordArray.splice (0, [passwordArray.length])
 
   getParameters()
 }
@@ -108,36 +110,48 @@ function getParameters() {
 function convertPasswordLength() {
 
   passwordLengthNum = parseInt(passwordLength);
-  console.log(typeof passwordLengthNum);
+  // console.log(typeof passwordLengthNum);
 
   generatePassword();
 };
 
-// This randomly generates the password using the prescirbed parameters.
+// This randomly generates the password using the prescirbed parameters and a random number generator, inside a for loop.
 function generatePassword() {
 
-  for(var i = 0; i <= [passwordLengthNum]; i++) {
-    passwordArray.push([characterPool[generateRandomNumber(0, [characterPool.length - 1])]])
+  for(var i = 0; i <= passwordLengthNum -1; i++) {
+    getRandomCharacter();
+    passwordArray.push(randomCharacter)
   };
 
-  // This writes the newly generated password array as a string into the password variable.
-  password = passwordArray.join("")
+  writePassword();
+
+  // console.log(passwordArray)
 };
 
-// This is the random number generator, used in the generatePassword function for choosing characters from the characterPool array.
+// This gets each random character for the generatePassword function.
+function getRandomCharacter() {
+  characterPoolLength = characterPool.length;
+  randomCharacter = [characterPool[generateRandomNumber(0, [characterPoolLength - 1])]];
+  return randomCharacter;
+};
+
+// This is the random number generator, used in the getRandomCharacter function for choosing characters from the characterPool array.
 function generateRandomNumber(min, max) {
   randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
   return randomNumber;
-};
+};  
 
 // This writes the generated password to the page.
 function writePassword() {
-  // password = generatePassword();
+
+  // This writes the newly generated password array as a string into the password variable.
+  password = passwordArray.join("");
+
+  // password = generatePassword(); <-- This is old code from the starter.
   passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
-}
+};
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", initPassword);
