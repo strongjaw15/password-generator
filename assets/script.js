@@ -24,12 +24,12 @@ var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"
 var specialChar = ["`", "~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "[", "{", "]", "}", "\\", "|", ";", ":", "\'", "\"", ",", "<", ".", ">", "/", "?"];
 var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
-// Write password to the #password input
+// This initializes the sequence to get a password.
 function initPassword() {
 
-  // This resets the character pool for the generation of a new password.
-  characterPool.splice (0, [characterPool.length])
-  passwordArray.splice (0, [passwordArray.length])
+  // These reset the character pool and password array for the generation of a new password.
+  characterPool.splice(0, [characterPool.length]);
+  passwordArray.splice(0, [passwordArray.length]);
 
   getParameters()
 }
@@ -40,7 +40,7 @@ function getParameters() {
   // This confirms lowercase.
   if (confirm("Would you like to include lower-case letters? This is recommended.")) {
 
-    characterPool.push (...lowerCase);
+    characterPool.push(...lowerCase);
 
     inputLowerCase = true
   }
@@ -51,7 +51,7 @@ function getParameters() {
   // This confirms uppercase.
   if (confirm("Would you like to include upper-case letters?  This is recommended.")) {
 
-    characterPool.push (...upperCase)
+    characterPool.push(...upperCase)
 
     inputUpperCase = true
   }
@@ -62,7 +62,7 @@ function getParameters() {
   // This confirms numbers.
   if (confirm("Would you like to include numbers?  This is recommended.")) {
 
-    characterPool.push (...numbers)
+    characterPool.push(...numbers)
 
     inputNumbers = true
   }
@@ -73,17 +73,17 @@ function getParameters() {
   // This confirms special characters.
   if (confirm("Would you like to include special characters?  This is recommended.")) {
 
-    characterPool.push (...specialChar)
+    characterPool.push(...specialChar);
 
     inputSpecialChar = true
   }
   else {
     inputSpecialChar = false
   };
- 
+
   // This requires at least one character set to be selected.
   if (!inputLowerCase && !inputUpperCase && !inputNumbers && !inputSpecialChar) {
-    alert("Please try again and select at least one character set.")
+    alert("Please try again and select at least one character set.");
     return
   };
 
@@ -110,7 +110,6 @@ function getParameters() {
 function convertPasswordLength() {
 
   passwordLengthNum = parseInt(passwordLength);
-  // console.log(typeof passwordLengthNum);
 
   generatePassword();
 };
@@ -118,14 +117,12 @@ function convertPasswordLength() {
 // This randomly generates the password using the prescirbed parameters and a random number generator, inside a for loop.
 function generatePassword() {
 
-  for(var i = 0; i <= passwordLengthNum -1; i++) {
+  for (var i = 0; i <= passwordLengthNum - 1; i++) {
     getRandomCharacter();
     passwordArray.push(randomCharacter)
   };
 
   writePassword();
-
-  // console.log(passwordArray)
 };
 
 // This gets each random character for the generatePassword function.
@@ -139,7 +136,7 @@ function getRandomCharacter() {
 function generateRandomNumber(min, max) {
   randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
   return randomNumber;
-};  
+};
 
 // This writes the generated password to the page.
 function writePassword() {
@@ -147,7 +144,6 @@ function writePassword() {
   // This writes the newly generated password array as a string into the password variable.
   password = passwordArray.join("");
 
-  // password = generatePassword(); <-- This is old code from the starter.
   passwordText = document.querySelector("#password");
 
   passwordText.value = password;
