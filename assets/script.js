@@ -102,8 +102,6 @@ function getParameters() {
     }
   };
 
-// generateRandomNumber(0, [characterPool.length - 1])
-
 // console.log(characterPool[5]);
 
 generatePassword();
@@ -112,24 +110,16 @@ generatePassword();
 function generatePassword() {
 
   for(var i = 0; i <= [passwordLength]; i++) {
-    
+    passwordArray.push ([characterPool[generateRandomNumber(0, [characterPool.length - 1])]])
   }
-
-  // for( var i = 0; i < students.length; i++ ){
-  //   console.log(`welcome to the team ${students[i]}`)
-  //   }
-    
-  //   i = 0 means the counter starts at 0
-    
-  //   i < students.length tells it to go as long as i is less than the length of the array
-    
-  // i++ tells it to increment i by 1 each time. change the increment by saying i+2 (or whatever number.
   
+  return passwordArray.join("")
 };
 
 function generateRandomNumber(min, max) {
   randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
   return randomNumber;
+  // generateRandomNumber(0, [characterPool.length - 1])
 };
 
 // Add event listener to generate button
